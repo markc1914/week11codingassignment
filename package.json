@@ -1,0 +1,32 @@
+{
+  "name": "week11codingassignment",
+  "version": "1.0.0",
+  "description": "Week 11 coding assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markc1914/week11codingassignment.git"
+  },
+  "keywords": [
+    "tic",
+    "tac",
+    "toe"
+  ],
+  "author": "Mark Cornelius",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/markc1914/week11codingassignment/issues"
+  },
+  "homepage": "https://github.com/markc1914/week11codingassignment#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.4.0"
+  }
+}
