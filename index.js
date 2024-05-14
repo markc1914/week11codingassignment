@@ -3,11 +3,9 @@
  * Written by Mark Cornelius 
  */
 
-
 let whosTurn = 0;
 let boxes = []
 // we will assume X even and 0 is odd, and thus X goes first
-
 
 /**
  * 
@@ -17,7 +15,6 @@ let boxes = []
 function isEven(number) {
   return number % 2 === 0;
 }
-
 
 /**
  * 
@@ -32,7 +29,6 @@ function loadBoxesArray(boxes) {
   //let's be sure this worked
   console.log(boxes);
 }
-
 
 /**
  * checks to see if the boxes have the same contents
@@ -196,4 +192,3 @@ $('#result').hide();
 document.getElementById('clearBtn').addEventListener('click',clearContents);
 loadBoxesArray(boxes);
 loadClickEventIntoBoxes(boxes);
-
