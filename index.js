@@ -3,13 +3,10 @@
  * Written by Mark Cornelius
  */
 
-let whosTurn = 0;
-let boxes = []
+let whosTurn = 0; // we will assume X even and 0 is odd, and thus X goes first
 const result = '#result';
 const turnSpan = '#turn-span';
 const winClass = 'win';
-
-// we will assume X even and 0 is odd, and thus X goes first
 
 /**
  *
@@ -33,7 +30,8 @@ function loadBoxesArray(boxes) {
 }
 
 /**
- * checks to see if the boxes have the same contents
+ * checks to see if the boxes have the same non-empty contents
+ * if so, this set of three boxes represents a "winner"
  * @param {String} box1 the first box ID to check
  * @param {String} box2 the second box ID to check
  * @param {String} box3 the third box ID to check
@@ -107,7 +105,7 @@ function determineIfWon(boxes) {
  * check if all the boxes are full for a tie
  * @returns true if the boxes are all full, false if not
  */
-function checkifAllBoxesFull() {
+function checkifAllBoxesFull(boxes) {
   let allfull = true;
   let i = 0;
   while (i < boxes.length && allfull) {
@@ -140,10 +138,13 @@ function handleWinner(box1, box2, box3) {
   whosTurn = 0;
 }
 
+
 /**
- * Clear the board and reset all messages.
+ * 
+ * @param {[String]} boxes - the list of box ID's 
+ * @param {BigInt} whosTurn - the turn keeper
  */
-function clearContents() {
+function clearContents(boxes,whosTurn) {
   for (let box of boxes) {
     $(box).text('');
     $(box).removeClass(winClass);
@@ -157,6 +158,7 @@ function clearContents() {
 /**
  * load the onClick event into each box so the game actually works
  * @param {[String]} boxes - the array of box ID's
+ * @param
  */
 function loadClickEventIntoBoxes(boxes) {
   for (let box of boxes) {
@@ -172,7 +174,7 @@ function loadClickEventIntoBoxes(boxes) {
         }
         let winner = determineIfWon(boxes);
         if (!winner) {
-          if (!checkifAllBoxesFull()) {
+          if (!checkifAllBoxesFull(boxes)) {
             whosTurn++;
           } else {
             $(result).text(`It's a Tie!!!`);
@@ -185,7 +187,8 @@ function loadClickEventIntoBoxes(boxes) {
   }
 }
 
+let boxes = [];
 $(result).hide();
-$('#clearBtn').on('click',clearContents);
+$('#clearBtn').on('click', () => clearContents(boxes));
 loadBoxesArray(boxes);
 loadClickEventIntoBoxes(boxes);
