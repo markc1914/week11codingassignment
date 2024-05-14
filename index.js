@@ -150,7 +150,7 @@ function clearContents() {
   $('#turn-span').text('Tic Tac Toe');
   $('#result').text('');
   $('#result').hide();
-
+  whosTurn = 0;
 }
 
 /**
