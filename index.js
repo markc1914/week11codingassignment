@@ -1,3 +1,9 @@
+/**
+ * Week 11 Coding Assignment - Tic Tac Toe
+ * Written by Mark Cornelius 
+ */
+
+
 let whosTurn = 0;
 let boxes = []
 // we will assume X even and 0 is odd, and thus X goes first
@@ -29,11 +35,11 @@ function loadBoxesArray(boxes) {
 
 
 /**
- * 
- * @param {String} box1 
- * @param {String} box2 
- * @param {String} box3 
- * @returns 
+ * checks to see if the boxes have the same contents
+ * @param {String} box1 the first box ID to check
+ * @param {String} box2 the second box ID to check
+ * @param {String} box3 the third box ID to check
+ * @returns true if the contents are the same and not empty
  */
 function areContentsTheSame(box1, box2, box3) {
   console.log($(box1).text());
@@ -42,8 +48,8 @@ function areContentsTheSame(box1, box2, box3) {
 }
 
 /**
- * 
- * @param {[String]} boxes 
+ * determine if this round produces a winner based on the rules of Tic-tac-toe
+ * @param {[String]} boxes - the array of box ID's
  * @returns true if a winner is found false if not
  */
 function determineIfWon(boxes) {
@@ -100,6 +106,10 @@ function determineIfWon(boxes) {
   return false;
 }
 
+/**
+ * check if all the boxes are full for a tie
+ * @returns true if the boxes are all full, false if not
+ */
  function checkifAllBoxesFull() {
   let allfull=true;
   let i = 0;
@@ -113,6 +123,12 @@ function determineIfWon(boxes) {
   return allfull;
  }
 
+ /**
+  * Paint the winning boxes and show the winner in an alert
+  * @param {String} box1 the first box ID to paint
+  * @param {String} box2 the second box ID to paint
+  * @param {String} box3 the third box ID to paint
+  */
 function handleWinner(box1, box2, box3) {
   if (isEven(whosTurn)) {
     $(`#result`).text("X is the winnner");
@@ -126,6 +142,9 @@ function handleWinner(box1, box2, box3) {
   whosTurn = 0;
 }
 
+/**
+ * Clear the board and reset all messages. 
+ */
 function clearContents() {
   for (let box of boxes) {
     $(box).text('');
@@ -137,7 +156,10 @@ function clearContents() {
 
 }
 
-
+/**
+ * load the onClick event into each box so the game actually works
+ * @param {[String]} boxes 
+ */
 function loadClickEventIntoBoxes(boxes) {
   for (let box of boxes) {
     let  boxName = box.slice(1,5);
