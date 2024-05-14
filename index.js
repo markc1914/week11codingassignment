@@ -160,6 +160,7 @@ function loadClickEventIntoBoxes(boxes) {
             whosTurn++;
           } else {
             $('#result').text(`It's a Tie!!!`);
+            $('#result').show();
           }
         } 
       }
