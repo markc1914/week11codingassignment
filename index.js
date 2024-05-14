@@ -115,13 +115,15 @@ function determineIfWon(boxes) {
 
 function handleWinner(box1, box2, box3) {
   if (isEven(whosTurn)) {
-    $(`#turn-span`).text("X is the winnner");
+    $(`#result`).text("X is the winnner");
   } else {
-    $(`#turn-span`).text("O is the winnner");
+    $(`#result`).text("O is the winnner");
   }
   $(box1).addClass('win');
   $(box2).addClass('win');
   $(box3).addClass('win');
+  $(`#result`).show();
+  whosTurn = 0;
 }
 
 function clearContents() {
@@ -130,6 +132,8 @@ function clearContents() {
     $(box).removeClass('win');
   }
   $('#turn-span').text('Tic Tac Toe');
+  $('#result').text('');
+  $('#result').hide();
 
 }
 
@@ -155,7 +159,7 @@ function loadClickEventIntoBoxes(boxes) {
           if(!checkifAllBoxesFull()) {
             whosTurn++;
           } else {
-            $('#turn-span').text(`It's a Tie!!!`);
+            $('#result').text(`It's a Tie!!!`);
           }
         } 
       }
@@ -163,6 +167,7 @@ function loadClickEventIntoBoxes(boxes) {
   }
 }
 
+$('#result').hide();
 document.getElementById('clearBtn').addEventListener('click',clearContents);
 loadBoxesArray(boxes);
 loadClickEventIntoBoxes(boxes);
