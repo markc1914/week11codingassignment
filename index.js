@@ -26,9 +26,9 @@ function isEven(number) {
  */
 function loadBoxesArray(boxes) {
   for (let i = 1; i < 10; i++) {
-    let element = '#box' + i;
-    boxes.push(element);
-    $(element).textContent = '';
+    let elementId = '#box' + i;
+    boxes.push(elementId);
+    $(elementId).textContent = '';
   }
   //let's be sure this worked
   console.log(boxes);
@@ -159,7 +159,7 @@ function clearContents() {
 
 /**
  * load the onClick event into each box so the game actually works
- * @param {[String]} boxes 
+ * @param {[String]} boxes - the array of box ID's
  */
 function loadClickEventIntoBoxes(boxes) {
   for (let box of boxes) {
@@ -169,10 +169,10 @@ function loadClickEventIntoBoxes(boxes) {
       if (callingBox.innerHTML !== 'X' && callingBox.innerHTML !== 'O') {
         if (isEven(whosTurn)) {
           callingBox.innerHTML = 'X';
-          $(turnSpan).text('O turn now');
+          $(turnSpan).text(`O's turn now`);
         } else {
           callingBox.innerHTML = 'O';
-          $(turnSpan).text('X turn now');
+          $(turnSpan).text(`X's turn now`);
         }
         let winner = determineIfWon(boxes);
         if (!winner) {
