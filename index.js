@@ -139,6 +139,7 @@ function handleWinner(box1, box2, box3) {
   $(box2).addClass('win');
   $(box3).addClass('win');
   $(`#result`).show();
+  $(`#turn-span`).text('GAME OVER');
   whosTurn = 0;
 }
 
@@ -183,6 +184,7 @@ function loadClickEventIntoBoxes(boxes) {
           } else {
             $('#result').text(`It's a Tie!!!`);
             $('#result').show();
+            $(`#turn-span`).text('GAME OVER');
           }
         } 
       }
