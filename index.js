@@ -190,6 +190,6 @@ function loadClickEventIntoBoxes(boxes) {
 }
 
 $(result).hide();
-document.getElementById('clearBtn').addEventListener('click', clearContents);
+$('#clearBtn').on('click',clearContents);
 loadBoxesArray(boxes);
 loadClickEventIntoBoxes(boxes);
