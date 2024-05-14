@@ -1,6 +1,6 @@
 /**
  * Week 11 Coding Assignment - Tic Tac Toe
- * Written by Mark Cornelius 
+ * Written by Mark Cornelius
  */
 
 let whosTurn = 0;
@@ -12,8 +12,8 @@ const winClass = 'win';
 // we will assume X even and 0 is odd, and thus X goes first
 
 /**
- * 
- * @param {BigInt} number 
+ *
+ * @param {BigInt} number
  * @returns true if even, false if odd
  */
 function isEven(number) {
@@ -21,7 +21,7 @@ function isEven(number) {
 }
 
 /**
- * 
+ *
  * @param {[String]} boxes the array of box ID's in the game board
  */
 function loadBoxesArray(boxes) {
@@ -30,8 +30,6 @@ function loadBoxesArray(boxes) {
     boxes.push(elementId);
     $(elementId).textContent = '';
   }
-  //let's be sure this worked
-  console.log(boxes);
 }
 
 /**
@@ -42,7 +40,6 @@ function loadBoxesArray(boxes) {
  * @returns true if the contents are the same and not empty
  */
 function areContentsNotEmptyAndTheSame(box1, box2, box3) {
-  console.log($(box1).text());
   return !!($(box1).text() != '' &&
     $(box1).text() === $(box2).text() && $(box1).text() === $(box3).text());
 }
@@ -144,7 +141,7 @@ function handleWinner(box1, box2, box3) {
 }
 
 /**
- * Clear the board and reset all messages. 
+ * Clear the board and reset all messages.
  */
 function clearContents() {
   for (let box of boxes) {
@@ -165,7 +162,6 @@ function loadClickEventIntoBoxes(boxes) {
   for (let box of boxes) {
     $(box).on('click', (event) => {
       let callingBox = event.target;
-      console.log(callingBox);
       if (callingBox.innerHTML !== 'X' && callingBox.innerHTML !== 'O') {
         if (isEven(whosTurn)) {
           callingBox.innerHTML = 'X';
