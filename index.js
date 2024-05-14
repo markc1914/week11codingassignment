@@ -148,7 +148,7 @@ function clearContents() {
     $(box).text('');
     $(box).removeClass(winClass);
   }
-  $(turnSpan).text('Tic Tac Toe');
+  $(turnSpan).text(`Mark's Tic Tac Toe`);
   $(result).text('');
   $(result).hide();
   whosTurn = 0;
