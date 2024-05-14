@@ -5,6 +5,10 @@
 
 let whosTurn = 0;
 let boxes = []
+const result = '#result';
+const turnSpan = '#turn-span';
+const winClass = 'win';
+
 // we will assume X even and 0 is odd, and thus X goes first
 
 /**
@@ -37,7 +41,7 @@ function loadBoxesArray(boxes) {
  * @param {String} box3 the third box ID to check
  * @returns true if the contents are the same and not empty
  */
-function areContentsTheSame(box1, box2, box3) {
+function areContentsNotEmptyAndTheSame(box1, box2, box3) {
   console.log($(box1).text());
   return !!($(box1).text() != '' &&
     $(box1).text() === $(box2).text() && $(box1).text() === $(box3).text());
@@ -52,49 +56,49 @@ function determineIfWon(boxes) {
   let isWinner = false;
   //check all the ways you can win
   //row 1
-  isWinner = areContentsTheSame(boxes[0], boxes[1], boxes[2]);
+  isWinner = areContentsNotEmptyAndTheSame(boxes[0], boxes[1], boxes[2]);
   if (isWinner) {
     handleWinner(boxes[0], boxes[1], boxes[2]);
     return true;
   }
   //row2
-  isWinner = areContentsTheSame(boxes[3], boxes[4], boxes[5]);
+  isWinner = areContentsNotEmptyAndTheSame(boxes[3], boxes[4], boxes[5]);
   if (isWinner) {
     handleWinner(boxes[3], boxes[4], boxes[5]);
     return true;
   }
   //row3
-  isWinner = areContentsTheSame(boxes[6], boxes[7], boxes[8]);
+  isWinner = areContentsNotEmptyAndTheSame(boxes[6], boxes[7], boxes[8]);
   if (isWinner) {
     handleWinner(boxes[6], boxes[7], boxes[8]);
     return true;
   }
   //col 1
-  isWinner = areContentsTheSame(boxes[0], boxes[3], boxes[6]);
+  isWinner = areContentsNotEmptyAndTheSame(boxes[0], boxes[3], boxes[6]);
   if (isWinner) {
     handleWinner(boxes[0], boxes[3], boxes[6]);
     return true;
   }
   //col 2
-  isWinner = areContentsTheSame(boxes[1], boxes[4], boxes[7]);
+  isWinner = areContentsNotEmptyAndTheSame(boxes[1], boxes[4], boxes[7]);
   if (isWinner) {
     handleWinner(boxes[1], boxes[4], boxes[7]);
     return true;
   }
   //col 3
-  isWinner = areContentsTheSame(boxes[2], boxes[5], boxes[8]);
+  isWinner = areContentsNotEmptyAndTheSame(boxes[2], boxes[5], boxes[8]);
   if (isWinner) {
     handleWinner(boxes[2], boxes[5], boxes[8]);
     return true;
   }
   //diagonal 1
-  isWinner = areContentsTheSame(boxes[0], boxes[4], boxes[8]);
+  isWinner = areContentsNotEmptyAndTheSame(boxes[0], boxes[4], boxes[8]);
   if (isWinner) {
     handleWinner(boxes[0], boxes[4], boxes[8]);
     return true;
   }
   //diagonal 2
-  isWinner = areContentsTheSame(boxes[2], boxes[4], boxes[6]);
+  isWinner = areContentsNotEmptyAndTheSame(boxes[2], boxes[4], boxes[6]);
   if (isWinner) {
     handleWinner(boxes[2], boxes[4], boxes[6]);
     return true;
@@ -106,36 +110,36 @@ function determineIfWon(boxes) {
  * check if all the boxes are full for a tie
  * @returns true if the boxes are all full, false if not
  */
- function checkifAllBoxesFull() {
-  let allfull=true;
+function checkifAllBoxesFull() {
+  let allfull = true;
   let i = 0;
   while (i < boxes.length && allfull) {
     let boxText = $(boxes[i]).text();
-    if(boxText !== 'X' && boxText!== 'O' ) {
+    if (boxText !== 'X' && boxText !== 'O') {
       allfull = false;
     }
     i++;
   }
   return allfull;
- }
+}
 
- /**
-  * Paint the winning boxes and show the winner in an alert
-  * @param {String} box1 the first box ID to paint
-  * @param {String} box2 the second box ID to paint
-  * @param {String} box3 the third box ID to paint
-  */
+/**
+ * Paint the winning boxes and show the winner in an alert
+ * @param {String} box1 the first box ID to paint
+ * @param {String} box2 the second box ID to paint
+ * @param {String} box3 the third box ID to paint
+ */
 function handleWinner(box1, box2, box3) {
   if (isEven(whosTurn)) {
-    $(`#result`).text("X is the winnner");
+    $(result).text("X is the winnner");
   } else {
-    $(`#result`).text("O is the winnner");
+    $(result).text("O is the winnner");
   }
-  $(box1).addClass('win');
-  $(box2).addClass('win');
-  $(box3).addClass('win');
-  $(`#result`).show();
-  $(`#turn-span`).text('GAME OVER');
+  $(box1).addClass(winClass);
+  $(box2).addClass(winClass);
+  $(box3).addClass(winClass);
+  $(result).show();
+  $(turnSpan).text('Game Over');
   whosTurn = 0;
 }
 
@@ -145,11 +149,11 @@ function handleWinner(box1, box2, box3) {
 function clearContents() {
   for (let box of boxes) {
     $(box).text('');
-    $(box).removeClass('win');
+    $(box).removeClass(winClass);
   }
-  $('#turn-span').text('Tic Tac Toe');
-  $('#result').text('');
-  $('#result').hide();
+  $(turnSpan).text('Tic Tac Toe');
+  $(result).text('');
+  $(result).hide();
   whosTurn = 0;
 }
 
@@ -159,36 +163,33 @@ function clearContents() {
  */
 function loadClickEventIntoBoxes(boxes) {
   for (let box of boxes) {
-    let  boxName = box.slice(1,5);
-    let currentBox = document.getElementById(boxName);
-    console.log (currentBox);
-    currentBox.onclick = (event) => {
+    $(box).on('click', (event) => {
       let callingBox = event.target;
       console.log(callingBox);
       if (callingBox.innerHTML !== 'X' && callingBox.innerHTML !== 'O') {
         if (isEven(whosTurn)) {
           callingBox.innerHTML = 'X';
-          $('#turn-span').text('O turn now');
+          $(turnSpan).text('O turn now');
         } else {
           callingBox.innerHTML = 'O';
-          $('#turn-span').text('X turn now');
+          $(turnSpan).text('X turn now');
         }
         let winner = determineIfWon(boxes);
         if (!winner) {
-          if(!checkifAllBoxesFull()) {
+          if (!checkifAllBoxesFull()) {
             whosTurn++;
           } else {
-            $('#result').text(`It's a Tie!!!`);
-            $('#result').show();
-            $(`#turn-span`).text('GAME OVER');
+            $(result).text(`It's a Tie!!!`);
+            $(result).show();
+            $(turnSpan).text('Game Over');
           }
-        } 
+        }
       }
-    }
+    });
   }
 }
 
-$('#result').hide();
-document.getElementById('clearBtn').addEventListener('click',clearContents);
+$(result).hide();
+document.getElementById('clearBtn').addEventListener('click', clearContents);
 loadBoxesArray(boxes);
 loadClickEventIntoBoxes(boxes);
