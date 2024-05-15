@@ -156,13 +156,15 @@ $(document).ready(function () {
   }
 
   /**
-   * load the onClick event into each box so the game actually works
+   * load the onClick event into the board the game actually works
+   * and responds to the event on the correct target.
    * @param {[String]} boxes - the array of box ID's
    */
   function loadClickEventIntoBoxes(boxes) {
-    for (let box of boxes) {
-      $(box).on('click', (event) => {
-        let callingBox = event.target;
+    const $board = $('#board');
+    if ($board.length) {
+      $board.on('click', (event) => {
+        let callingBox = event.target.closest('.box');
         if (callingBox.innerHTML !== 'X' && callingBox.innerHTML !== 'O') {
           if (isEven(whosTurn)) {
             callingBox.innerHTML = 'X';
@@ -189,10 +191,13 @@ $(document).ready(function () {
 
   let boxes = [];
   $(result).hide();
-  $('#clearBtn').on('click', () => {
-    clearContents(boxes);
-    whosTurn = 0;
-  });
+  const $clearbtn = $('#clearBtn');
+  if ($clearbtn.length) {
+    $clearbtn.on('click', () => {
+      clearContents(boxes);
+      whosTurn = 0;
+    });
+  }
   loadBoxesArray(boxes);
   loadClickEventIntoBoxes(boxes);
 });
