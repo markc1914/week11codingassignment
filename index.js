@@ -4,7 +4,7 @@
  */
 
 
-$(document).ready(function () {
+$(document).ready(() => {
 
   let whosTurn = 0; // we will assume X even and 0 is odd, and thus X goes first
   const result = '#result';
